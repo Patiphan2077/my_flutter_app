@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class WeatherApp extends StatefulWidget {
-  const WeatherApp({Key? key}) : super(key: key);
+  const WeatherApp({super.key});
 
   @override
   State<WeatherApp> createState() => _WeatherAppState();
@@ -17,11 +17,11 @@ class _WeatherAppState extends State<WeatherApp>
   String _city = 'Bangkok, Thailand';
   double _latitude = 13.7563;
   double _longitude = 100.5018;
-  
+
   WeatherData? _weatherData;
   bool _isLoading = true;
   String? _errorMessage;
-  
+
   final TextEditingController _cityController = TextEditingController();
 
   @override
@@ -61,14 +61,14 @@ class _WeatherAppState extends State<WeatherApp>
       );
 
       final weatherResponse = await http.get(weatherUrl).timeout(
-        const Duration(seconds: 10),
-        onTimeout: () => throw Exception('Connection timeout'),
-      );
+            const Duration(seconds: 10),
+            onTimeout: () => throw Exception('Connection timeout'),
+          );
 
       final forecastResponse = await http.get(forecastUrl).timeout(
-        const Duration(seconds: 10),
-        onTimeout: () => throw Exception('Connection timeout'),
-      );
+            const Duration(seconds: 10),
+            onTimeout: () => throw Exception('Connection timeout'),
+          );
 
       if (weatherResponse.statusCode == 200 &&
           forecastResponse.statusCode == 200) {
@@ -98,9 +98,9 @@ class _WeatherAppState extends State<WeatherApp>
       );
 
       final response = await http.get(geoUrl).timeout(
-        const Duration(seconds: 10),
-        onTimeout: () => throw Exception('Connection timeout'),
-      );
+            const Duration(seconds: 10),
+            onTimeout: () => throw Exception('Connection timeout'),
+          );
 
       if (response.statusCode == 200) {
         final json = jsonDecode(response.body);
@@ -272,8 +272,8 @@ class _WeatherAppState extends State<WeatherApp>
                                           borderRadius:
                                               BorderRadius.circular(30),
                                           border: Border.all(
-                                            color: Colors.white
-                                                .withOpacity(0.3),
+                                            color:
+                                                Colors.white.withOpacity(0.3),
                                             width: 1.5,
                                           ),
                                         ),
@@ -284,12 +284,11 @@ class _WeatherAppState extends State<WeatherApp>
                                               decoration: BoxDecoration(
                                                 shape: BoxShape.circle,
                                                 color: _getWeatherIconColor(
-                                                    _weatherData!
-                                                        .weatherCode),
+                                                    _weatherData!.weatherCode),
                                               ),
                                               child: Icon(
-                                                _getWeatherIcon(_weatherData!
-                                                    .weatherCode),
+                                                _getWeatherIcon(
+                                                    _weatherData!.weatherCode),
                                                 size: 80,
                                                 color: Colors.white,
                                               ),
@@ -349,8 +348,8 @@ class _WeatherAppState extends State<WeatherApp>
                                           borderRadius:
                                               BorderRadius.circular(20),
                                           border: Border.all(
-                                            color: Colors.white
-                                                .withOpacity(0.3),
+                                            color:
+                                                Colors.white.withOpacity(0.3),
                                             width: 1.5,
                                           ),
                                         ),
@@ -415,7 +414,7 @@ class _WeatherAppState extends State<WeatherApp>
                                                   ],
                                                 ),
                                               );
-                                            }).toList(),
+                                            }),
                                           ],
                                         ),
                                       ),
@@ -525,10 +524,11 @@ class WeatherData {
     required this.forecast,
   });
 
-  factory WeatherData.fromJson(Map<String, dynamic> json, Map<String, dynamic> forecastJson) {
+  factory WeatherData.fromJson(
+      Map<String, dynamic> json, Map<String, dynamic> forecastJson) {
     final current = json['current'];
     final daily = forecastJson['daily'];
-    
+
     final temps = (daily['temperature_2m_max'] as List).cast<num>();
     final minTemps = (daily['temperature_2m_min'] as List).cast<num>();
     final weatherCodes = (daily['weather_code'] as List).cast<int>();
@@ -538,7 +538,7 @@ class WeatherData {
     for (int i = 0; i < 5 && i < temps.length; i++) {
       final date = DateTime.parse(dates[i]);
       final dayNames = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-      
+
       forecast.add({
         'dayName': dayNames[date.weekday % 7],
         'tempMax': temps[i].toInt(),
