@@ -116,6 +116,10 @@ class _WeatherAppState extends State<WeatherApp>
             _errorMessage = 'City not found';
           });
         }
+      } else {
+        setState(() {
+          _errorMessage = 'Failed to search city (HTTP ${response.statusCode})';
+        });
       }
     } catch (e) {
       setState(() {
@@ -497,7 +501,7 @@ class _WeatherAppState extends State<WeatherApp>
   }
 
   String _getWeatherDescription(int weatherCode) {
-    if (weatherCode == 0) return 'Clear Sky';
+    if (weatherCode == 0) return 'Clear sky';
     if (weatherCode == 1 || weatherCode == 2) return 'Mostly Cloudy';
     if (weatherCode == 3) return 'Overcast';
     if (weatherCode == 45 || weatherCode == 48) return 'Foggy';

@@ -1,16 +1,38 @@
 # my_flutter_app
 
-A new Flutter project.
+A Flutter weather application that fetches current conditions and a 5-day forecast using the Open-Meteo APIs.
+
+## Features
+
+- Search weather by city name
+- Show current temperature, humidity, and wind speed
+- Display weather condition icon and description
+- 5-day forecast overview
+- Graceful error state with retry
+
+## Tech Stack
+
+- Flutter (Material 3)
+- `http` package for API calls
+- Open-Meteo Forecast API
+- Open-Meteo Geocoding API
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+### Prerequisites
 
-A few resources to get you started if this is your first Flutter project:
+- Flutter SDK
+- Dart SDK (bundled with Flutter)
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+### Run
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+```bash
+flutter pub get
+flutter run
+```
+
+## Test
+
+```bash
+flutter test
+```
